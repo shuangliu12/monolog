@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="large-10 large-centered columns">
+    <textarea>What's on your mind?</textarea><button class="tiny button right">negative</button><button class="tiny button right">positive</button><p class="text-right">I am feeling&nbsp</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class = "large-10 large-centered columns">
+    <article>
+      <% @status.each do |status|%>
+      <h6 id='time'><%= status['time']%></h6>
+      <p>  <%= status['content']%> </P>
+      <hr/>
+      <%end%>
+    </article>
+  </div>
+</div>
+
