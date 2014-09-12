@@ -1,6 +1,10 @@
 require 'sinatra';
 require 'sinatra/reloader';
 require 'pg';
+require 'gchart'
+require 'pry';
+require 'time';
+require 'chartkick';
 
 def db_connection
   begin
@@ -22,6 +26,12 @@ get '/monolog' do
 end
 
 get '/monolog/mood_analyzer' do
+  sql = 'SELECT time, mood FROM status'
+  db_connection do |conn|
+    @moods = conn.exec(sql)
+  end
+    @moods = @moods.to_a
+
   erb :mood_analyzer
 end
 
