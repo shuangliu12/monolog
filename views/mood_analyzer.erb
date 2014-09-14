@@ -1,21 +1,5 @@
 <html>
   <head>
-
-
-<div class="fixed" id="top_bar">
-  <div class="row">
-    <div class="large-10 large-centered columns">
-      <div class="nav-bar right">
-
-      </div>
-      <h1><a href="/monolog">Monolog</a></h1>
-      <hr/>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="large-10 large-centered columns">
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
 
@@ -24,8 +8,18 @@
       function drawChart() {
         <% chartHash = {}%>
         <% num = 0%>
-        <% 30.times do
+
+        <% month = 9
+            year = 2014%>
+        <% if month == 2 && Date.gregorian_leap?(year)
+              numDaysInMonth = 29
+            else
+              numDaysInMonth = [nil, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month]
+            end
+        %>
+        <% numDaysInMonth.times do
             num = num + 1
+            #[num of positive comments, num of negative comments]
             chartHash[num] = [0,0]
          end %>
         <% @moods.each do |mood|%>
@@ -49,7 +43,10 @@
 
 
         var options = {
-          title: 'My Mood in September'
+          title: "My Mood in "
+          ,vAxis: { title: "Number of journal entries" }
+          ,hAxis: { title: "Day of the month"
+                    ,ticks: [1,7,14,21,28]}
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
@@ -57,10 +54,13 @@
         chart.draw(data, options);
       }
     </script>
-    </div>
-  </div>
   </head>
   <body>
+    <p align="center">My mood in <%=["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][month] + ", " +  year.to_s%>  </p>
+    <button type="button">Previous Month</button>
+    <button type="button">Next Month</button>
+    <button type="button">Year View</button>
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
   </body>
 </html>
+
