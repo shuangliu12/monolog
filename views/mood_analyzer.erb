@@ -6,28 +6,39 @@
       google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
-        <% chartHash = {}%>
-        <% num = 0%>
+        <% chartHash = Hash.new([0,0])%>
 
-
-        <% if @month == 2 && Date.gregorian_leap?(@year)
-              numDaysInMonth = 29
+        <% if @month == 0 && Date.gregorian_leap?(@year)
+              numDaysInGraph = 366
+            elsif @month == 0
+              numDaysInGraph = 365
+            elsif @month == 2 && Date.gregorian_leap?(@year)
+              numDaysInGraph = 29
             else
-              numDaysInMonth = [nil, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][@month]
+              numDaysInGraph = [nil, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][@month]
             end
         %>
-        <% numDaysInMonth.times do
+
+        <% num = 0%>
+        <% numDaysInGraph.times do
             num = num + 1
             #[num of positive comments, num of negative comments]
             chartHash[num] = [0,0]
          end %>
+
         <% @moods.each do |mood|%>
-          <% time = Time.parse(mood['time'])
-          if mood['mood'] == '1'
-            chartHash[time.day] = [chartHash[time.day][0]+1,chartHash[time.day][1]]
-          else
-            chartHash[time.day] = [chartHash[time.day][0],chartHash[time.day][1]+1]
-          end%>
+            <% time = Time.parse(mood['time'])
+            if @month == 0
+              day = time.yday
+            else
+              day = time.day
+            end
+
+            if mood['mood'] == '1'
+              chartHash[day] = [chartHash[day][0]+1,chartHash[day][1]]
+            else
+              chartHash[day] = [chartHash[day][0],chartHash[day][1]+1]
+            end%>
         <% end%>
 
         <%charts = chartHash.to_a%>
@@ -45,7 +56,11 @@
           title: "My Mood in "
           ,vAxis: { title: "Number of journal entries" }
           ,hAxis: { title: "Day of the month"
-                    ,ticks: [1,7,14,21,28]}
+                    ,ticks: <%if @month != 0%>[{v:1,f:"1"},{v:7,f:"7"},{v:14,f:"14"},{v:21,f:"21"},{v:28,f:"28"}]
+                    <%else%>
+                    [{v:1,f:"Jan"},{v:32,f:"Feb"},{v:60,f:"Mar"},{v:91,f:"Apr"},{v:121,f:"May"},{v:152,f:"Jun"},{v:182,f:"Jul"},{v:213,f:"Aug"},{v:244,f:"Sep"},{v:274,f:"Oct"},{v:305,f:"Nov"},{v:335,f:"Dec"}]
+                    <%end%>
+                  }
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
@@ -55,7 +70,7 @@
     </script>
   </head>
   <body>
-    <p align="center">My mood in <%=["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][@month] + ", " +  @year.to_s%>  </p>
+    <p align="center">My mood in <%=["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][@month] + ", " +  @year.to_s%> </p>
 
 
       <a href="/monolog/mood_analyzer?year=<%if @month != 1%><%=@year%>&month=<%=@month-1%>
@@ -68,7 +83,7 @@
         <button type="button">Next Month</button>
       </a>
 
-    <button type="button">Year View</button>
+    <a href="/monolog/mood_analyzer?year=<%=@year%>&month=0"><button type="button">Year View</button></a>
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
   </body>
 </html>

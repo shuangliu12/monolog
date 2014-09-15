@@ -28,11 +28,10 @@ end
 get '/monolog/mood_analyzer' do
   @year = params[:year].to_i
   @month = params[:month].to_i
-  #year = 2014
-  #month = 10
 
   #if there's no month then get all the moods for the whole year
-  if !defined?(@month)
+  #if !defined?(@month) || @month.nil?
+  if @month == 0
     t1 = Time.new(@year)
     t2 = Date.new(@year).next_year.to_time
   #else get the moods for a specific month
