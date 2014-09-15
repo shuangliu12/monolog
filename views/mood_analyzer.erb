@@ -9,12 +9,11 @@
         <% chartHash = {}%>
         <% num = 0%>
 
-        <% month = 9
-            year = 2014%>
-        <% if month == 2 && Date.gregorian_leap?(year)
+
+        <% if @month == 2 && Date.gregorian_leap?(@year)
               numDaysInMonth = 29
             else
-              numDaysInMonth = [nil, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month]
+              numDaysInMonth = [nil, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][@month]
             end
         %>
         <% numDaysInMonth.times do
@@ -56,9 +55,19 @@
     </script>
   </head>
   <body>
-    <p align="center">My mood in <%=["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][month] + ", " +  year.to_s%>  </p>
-    <button type="button">Previous Month</button>
-    <button type="button">Next Month</button>
+    <p align="center">My mood in <%=["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][@month] + ", " +  @year.to_s%>  </p>
+
+
+      <a href="/monolog/mood_analyzer?year=<%if @month != 1%><%=@year%>&month=<%=@month-1%>
+        <%else%><%=@year-1%>&month=<%=12%><%end%>">
+        <button type="button">Previous Month</button>
+      </a>
+
+      <a href="/monolog/mood_analyzer?year=<%if @month != 12%><%=@year%>&month=<%=@month+1%>
+        <%else%><%=@year+1%>&month=<%=1%><%end%>">
+        <button type="button">Next Month</button>
+      </a>
+
     <button type="button">Year View</button>
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
   </body>

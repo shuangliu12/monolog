@@ -26,14 +26,31 @@ get '/monolog' do
 end
 
 get '/monolog/mood_analyzer' do
-  sql = 'SELECT time, mood FROM status'
-  db_connection do |conn|
-    @moods = conn.exec(sql)
-  end
-    @moods = @moods.to_a
+  @year = params[:year].to_i
+  @month = params[:month].to_i
+  #year = 2014
+  #month = 10
 
+  #if there's no month then get all the moods for the whole year
+  if !defined?(@month)
+    t1 = Time.new(@year)
+    t2 = Date.new(@year).next_year.to_time
+  #else get the moods for a specific month
+  else
+    t1 = Time.new(@year,@month)
+    t2 = Date.new(@year,@month).next_month.to_time
+  end
+
+  sql = 'SELECT time, mood FROM status WHERE time BETWEEN $1 AND $2'
+  db_connection do |conn|
+    @moods = conn.exec(sql,[t1,t2])
+  end
+  @moods = @moods.to_a
   erb :mood_analyzer
 end
+
+
+
 
 post '/monolog' do
   status = params['status']
