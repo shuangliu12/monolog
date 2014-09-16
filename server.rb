@@ -1,10 +1,9 @@
 require 'sinatra';
 require 'sinatra/reloader';
 require 'pg';
-require 'gchart'
 require 'pry';
 require 'time';
-require 'chartkick';
+
 
 def db_connection
   begin
@@ -21,6 +20,17 @@ get '/monolog' do
     @status = conn.exec(sql)
   end
   @status=@status.to_a.reverse
+  @time = Time.now
+  erb :index
+end
+
+get '/monolog/positive' do
+  search = 'SELECT content, time FROM status WHERE mood = 1'
+    db_connection do |conn|
+      @status = conn.exec_params(search)
+    end
+  @status=@status.to_a.reverse
+
   @time = Time.now
   erb :index
 end
@@ -47,7 +57,6 @@ get '/monolog/mood_analyzer' do
   @moods = @moods.to_a
   erb :mood_analyzer
 end
-
 
 
 

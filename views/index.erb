@@ -1,12 +1,10 @@
 <div class="fixed" id="top_bar">
   <div class="row">
     <div class="large-10 large-centered columns">
-
-
       <div class="nav-bar right">
-        <a href="/monolog/mood_analyzer"><button>Mood Analyzer</button></a>
+        <a href="/monolog/mood_analyzer?year=<%=@time.year%>&month=<%=@time.month%>"><button>Mood Analyzer</button></a>
       </div>
-      <h1><a href="/monolog">Monolog</a></h1>
+        <h1><a href="/monolog">Monolog</a></h1>
       <hr/>
     </div>
   </div>
@@ -24,6 +22,14 @@
 
 <div class="row">
   <div class = "large-10 large-centered columns">
+    <form method="get" action = "/monolog/positive">
+      <input type="submit" value="Good Moments In My Life" />
+    </form>
+
+    <form method="get" action = "/monolog">
+      <input type="submit" value="Show All" />
+    </form>
+
     <article>
       <% @status.each do |status|%>
       <% time = Time.parse(status['time'])%>

@@ -53,9 +53,9 @@
 
 
         var options = {
-          title: "My Mood in "
-          ,vAxis: { title: "Number of journal entries" }
-          ,hAxis: { title: "Day of the month"
+          vAxis: { title: "Mood"
+                    ,viewWindow: {min: 0}}
+          ,hAxis: { title: "Day"
                     ,ticks: <%if @month != 0%>[{v:1,f:"1"},{v:7,f:"7"},{v:14,f:"14"},{v:21,f:"21"},{v:28,f:"28"}]
                     <%else%>
                     [{v:1,f:"Jan"},{v:32,f:"Feb"},{v:60,f:"Mar"},{v:91,f:"Apr"},{v:121,f:"May"},{v:152,f:"Jun"},{v:182,f:"Jul"},{v:213,f:"Aug"},{v:244,f:"Sep"},{v:274,f:"Oct"},{v:305,f:"Nov"},{v:335,f:"Dec"}]
@@ -69,10 +69,28 @@
       }
     </script>
   </head>
+
   <body>
-    <p align="center">My mood in <%=["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][@month] + ", " +  @year.to_s%> </p>
+    <div id="top_bar">
+      <div class="row">
+        <div class="large-10 large-centered columns">
+          <h1><a href="/monolog">Monolog</a></h1>
+          <hr/>
+        </div>
+      </div>
+    </div>
 
+   <div class = "chart">
+    <p align="center">My Mood in <%
+      current_month = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][@month] %>
+      <% if current_month != "" %>
+        <%= current_month + ", " + @year.to_s%>
+      <% else %>
+        <%= @year.to_s%>
+      <% end %>
+    </p>
 
+    <% if @month != 0 %>
       <a href="/monolog/mood_analyzer?year=<%if @month != 1%><%=@year%>&month=<%=@month-1%>
         <%else%><%=@year-1%>&month=<%=12%><%end%>">
         <button type="button">Previous Month</button>
@@ -83,8 +101,15 @@
         <button type="button">Next Month</button>
       </a>
 
-    <a href="/monolog/mood_analyzer?year=<%=@year%>&month=0"><button type="button">Year View</button></a>
+      <a href="/monolog/mood_analyzer?year=<%=@year%>&month=0"><button type="button">Year View</button></a>
+    <% end %>
+
+    <% if @month == 0 %>
+    <a href="/monolog/mood_analyzer?year=<%=@year-1%>&month=0"><button type="button">Previous Year</button></a>
+    <a href="/monolog/mood_analyzer?year=<%=@year+1%>&month=0"><button type="button">Next Year</button></a>
+    <% end %>
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </div>
   </body>
 </html>
 

@@ -1,16 +1,23 @@
 #top_bar{
   background-color: white;
+  opacity: 0.80;
+/*  filter: alpha(opacity=30);*/
 }
 
-
+body{
+  font-family: Arial;
+}
 
 body div div h1{
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 
 #box{
-  margin-top:210px;
+  margin-top:140px;
 }
 
-
+footer{
+  background-color: #FFA84C;
+  padding: 40px;
+}
