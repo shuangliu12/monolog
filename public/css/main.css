@@ -28,3 +28,9 @@ footer{
   background-color: white;;
   padding: 40px;
 }
+
+button, .button{
+  background-color: white;
+  color: #1e1645;
+  border:1px solid;
+}
