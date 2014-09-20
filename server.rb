@@ -14,6 +14,7 @@ def db_connection
   end
 end
 
+
 get '/monolog' do
   sql = 'SELECT content, time FROM status'
   db_connection do |conn|
@@ -76,23 +77,6 @@ post '/monolog' do
   redirect '/monolog'
 end
 
-# post '/monolog/:id' do
-#   id = params[:id]
-#   insert = 'DELETE FROM status WHERE id = $1'
-#   db_connection do |conn|
-#     conn.exec_params(insert,[id])
-#   end
-#   redirect '/monolog'
-# end
-
-# post '/monolog/:id/edit'do
-#   edit = params['edit']
-#   sql = 'UPDATE status SET status(content) VALUES($1)'
-#   db_connection do |conn|
-#     conn.exec_params(update,[status])
-#   end
-#   redirect '/monolog'
-# end
 
 set :views, File.dirname(__FILE__) + '/views'
 set :public_folder, File.dirname(__FILE__) + '/public'

@@ -23,15 +23,20 @@
 
 
 <div class="row">
-  <div class = "large-10 large-centered columns">
-    <form method="get" action = "/monolog/positive">
-      <input class= 'button' type="submit" value="Good Moments In My Life" />
-    </form>
 
+  <div class = "large-10 large-centered columns">
+    <div class= 'select_mood'>
+      <a href="/monolog/positive">Good Moments In My Life</a>
+    </div>
+<!--
     <form method="get" action = "/monolog">
       <input class= 'button' type="submit" value="Show All" />
-    </form>
+    </form> -->
+  </div>
+</div>
 
+<div class='row'>
+  <div class = "large-10 large-centered columns">
     <article>
       <% @status.each do |status|%>
       <% time = Time.parse(status['time'])%>
