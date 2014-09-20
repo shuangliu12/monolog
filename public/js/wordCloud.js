@@ -1,7 +1,8 @@
 var fill = d3.scale.category20();
 
     d3.layout.cloud().size([550, 550])
-      .words(['Freezing', 'cold', 'unpleasant', 'conversation', 'mom', 'Called', 'talked', 'leave', 'Stop', 'Shop', 'food', 'water', 'chips', 'dip', 'watched', 'comedy', 'show', 'show', 'boring', 'replied', 'email', 'made', 'hotpot', 'sauce', 'time', 'taste', 'added', 'salt', 'vinegar', 'taste', 'good', 'eat', 'understand', 'hotpot', 'boring', 'text', 'message', 'texted', 'back', 'told', 'missed', 'played', 'games', 'lost', 'interests', 'games', 'watched', 'shows', 'shows', 'working', 'writing', 'chapter', 'long', 'Saturday', 'met', 'started', 'Saturdays', 'met', 'missed', 'Playing', 'games', 'fun', 'strange', 'fun', 'activity', 'Reading', 'email', 'makes', 'sad', 'Shhh', 'learn', '5words', 'time', 'today', 'kind', 'back', 'home', 'home', 'China', 'back', 'H1B', 'back', 'make', 'cry', 'work', 'job', 'month', 'check', 'flight', 'ticket', 'thinking', 'China', 'long', 'killed', 'pollution', 'totally', 'excited', 'facial', 'expression', 'make', 'poker', 'face', 'thinking', 'Karatsuba', 'Multiplication', 'program', 'loop', 'recursive', 'watching', 'Ipartment', 'hilarious', 'tricking', 'Japanese', 'guy', 'Yep', 'def', 'watch', 'episode', 'people', 'trick', 'foreigners'].map(function(d) {
+      .words([
+        ].map(function(d) {
         return {text: d, size: 10 + Math.random() * 90};
       }))
       .padding(5)

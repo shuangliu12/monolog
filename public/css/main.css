@@ -45,14 +45,14 @@ button, .button{
 .select_mood a{
   padding: 10px;
   color: white;
-  background-color:lightblue;
+  background-color:tomato;
   font-style: italic;
  /* margin-left: -10px;*/
 }
 
 .select_mood a:hover{
   padding: 10px;
-  color: lightblue;
+  color: tomato;
   font-style: italic;
   background-color:white;
   margin-left: -10px;

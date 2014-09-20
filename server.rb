@@ -16,21 +16,19 @@ end
 
 
 get '/monolog' do
-  sql = 'SELECT content, time FROM status'
+  sql = 'SELECT content, time FROM status ORDER BY time DESC'
   db_connection do |conn|
     @status = conn.exec(sql)
   end
-  @status=@status.to_a.reverse
   @time = Time.now
   erb :index
 end
 
 get '/monolog/positive' do
-  search = 'SELECT content, time FROM status WHERE mood = 1'
+  search = 'SELECT content, time FROM status WHERE mood = 1 ORDER BY time DESC'
     db_connection do |conn|
       @status = conn.exec_params(search)
     end
-  @status=@status.to_a.reverse
 
   @time = Time.now
   erb :index
@@ -51,11 +49,17 @@ get '/monolog/mood_analyzer' do
     t2 = Date.new(@year,@month).next_month.to_time
   end
 
-  sql = 'SELECT time, mood FROM status WHERE time BETWEEN $1 AND $2'
+  sql = 'SELECT time, mood, content FROM status WHERE time BETWEEN $1 AND $2'
   db_connection do |conn|
     @moods = conn.exec(sql,[t1,t2])
   end
   @moods = @moods.to_a
+
+  @contents = []
+  @moods.each do |mood|
+    @contents << mood['content']
+  end
+
   erb :mood_analyzer
 end
 
