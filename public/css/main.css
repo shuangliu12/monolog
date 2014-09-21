@@ -7,8 +7,7 @@
 body{
   font-family: Arial;
   color: #1e1645;
-  /*background-color:#1e1645;
-  color: white;*/
+
 }
 
 #header-row {
@@ -16,18 +15,18 @@ body{
   margin-bottom: 40px;
 }
 
-/*body div div h1{
-  margin-top: 40px;
-  margin-bottom: 80px;
-}
-*/
+
 h1 a{
   color:#1e1645;
   font-family: Verdana;
 }
 
 #box{
-  margin-top:200px;
+  margin-top:100px;
+}
+
+#myCanvas{
+  margin-top: -12px;
 }
 
 footer{
@@ -47,7 +46,6 @@ button, .button{
   color: white;
   background-color:tomato;
   font-style: italic;
- /* margin-left: -10px;*/
 }
 
 .select_mood a:hover{
@@ -60,11 +58,14 @@ button, .button{
 
 .select_mood{
   margin-bottom: 20px;
- /* margin-left: -10px;*/
 }
 
 button:hover, .button:hover{
   background-color: #1e1645;
   color: white;
   border:1px solid;
+}
+
+.monolog:hover{
+  color:lightblue;
 }

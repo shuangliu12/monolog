@@ -1,11 +1,14 @@
 $(".show_all").hide();
 
 
-$(document).ready(function(){
-    $(".select_mood").click(function(){
-        $(this).fadeOut('fast');
-        $(".show_all").show();
-    });
-})
-
+// $(function() {
+//   $('.select_mood').on('click', function(event) {
+//     $('.select_mood').on('click', function(event) {
+//       alert("hi");
+//       event.preventDefault();
+//       $(".show_all").show();
+//       $(this).hide();
+//     });
+//   });
+// });
 

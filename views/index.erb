@@ -1,12 +1,31 @@
+
+<script type="text/javascript" src="/js/paper.js"></script>
+<script type="text/paperscript" canvas="myCanvas">
+
+  var path = new Path.Rectangle({
+    point: [40,40],
+    size: [40, 40],
+    strokeColor: 'CC1600',
+    strokeWidth: 2
+  });
+
+    function onFrame(event) {
+      path.strokeColor.hue += 1;
+      path.rotate(1);
+  }
+</script>
+<div class="large-5 large-centered columns">
+<canvas id="myCanvas" width='89', height='89'></canvas>
+</div>
 <div class="fixed" id="top_bar">
   <div class = "panel">
     <div class="row">
       <div class="large-10 large-centered columns">
         <div class="nav-bar right">
-            <a href="/monolog/mood_analyzer?year=<%=@time.year%>&month=<%=@time.month%>">
+         <a href="/monolog/mood_analyzer?year=<%=@time.year%>&month=<%=@time.month%>">
             <button>Mood Analyzer</button></a>
           </div>
-        <h1><a href="/monolog">Monolog</a></h1>
+         <h1><a href="/monolog" class='monolog'>Monolog</a></h1>
       </div>
     </div>
   </div>
