@@ -10,6 +10,10 @@ body{
 
 }
 
+#word_cloud{
+  display:inline;
+}
+
 #header-row {
   margin-top: 40px;
   margin-bottom: 40px;
@@ -44,7 +48,7 @@ button, .button{
 .select_mood a{
   padding: 10px;
   color: white;
-  background-color:tomato;
+  background-color:#FF7E6F;
   font-style: italic;
 }
 
@@ -68,4 +72,9 @@ button:hover, .button:hover{
 
 .monolog:hover{
   color:lightblue;
+}
+
+.word-cloud {
+  display: block;
+  margin: 0 auto;
 }
